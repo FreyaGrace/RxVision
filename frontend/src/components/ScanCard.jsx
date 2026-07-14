@@ -112,11 +112,10 @@ export default function ScanCard({ scanState, imagePreview, setImagePreview, set
     formData.append('file', activeFileRef.current)
 
     try {
-      const response = await fetch('http://127.0.0.1:8000/scan', {
+      const response = await fetch('https://rxvision.onrender.com/scan', {
         method: 'POST',
         body: formData,
       })
-
       console.log('Status:', response.status)
 
       if (!response.ok) {
