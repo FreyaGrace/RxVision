@@ -8,6 +8,7 @@ from .ocr import read_text
 app = FastAPI()
 app.add_middleware(
     CORSMiddleware,
+    allow_origin_regex = r"https://.*\.vercel\.app",
     allow_origins=[
         "https://rx-vision-2wvtaf9hx-fatimagraceapinan-6557s-projects.vercel.app",
         "https://rx-vision-nine.vercel.app",

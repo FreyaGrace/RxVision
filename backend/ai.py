@@ -43,4 +43,8 @@ Prescription:
         contents=prompt,
     )
 
+    print("===== GEMINI RESPONSE =====")
+    print(repr(response.text))
+    print("===========================")
+
     return json.loads(response.text)
