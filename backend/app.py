@@ -9,7 +9,7 @@ app = FastAPI()
 app.add_middleware(
     CORSMiddleware,
     allow_origins=[
-        "http://localhost:5173",
+        "https://rx-vision-2wvtaf9hx-fatimagraceapinan-6557s-projects.vercel.app",
     ],
     allow_credentials=True,
     allow_methods=["*"],
