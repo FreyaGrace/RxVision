@@ -25,7 +25,7 @@ export default function Donation() {
 
         <div>
           <h2 style={{ fontFamily: "'Outfit', sans-serif", fontWeight: 700, color: 'white', fontSize: '1.2rem', lineHeight: 1.3 }}>
-            RxScan AI is free to use
+            RxVision is free to use
           </h2>
           <p style={{ color: 'rgba(255,255,255,0.7)', fontSize: '0.85rem', marginTop: '6px' }}>
             Support the server upkeep with a coffee!
