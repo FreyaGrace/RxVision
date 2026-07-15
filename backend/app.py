@@ -1,3 +1,5 @@
+from pydoc import text
+
 from fastapi import FastAPI, UploadFile, File
 from fastapi.middleware.cors import CORSMiddleware
 import shutil
@@ -37,7 +39,12 @@ async def scan(file: UploadFile = File(...)):
     text = read_text(file_location)
     structured = parse_prescription(text)
 
-    return {
+    if text == "OCR Failed" or text.startswith("Request failed"):
+        return {
         "ocr_text": text,
-        "structured": structured
+        "structured": None,
     }
+    return {
+    "ocr_text": text,
+    "structured": structured,
+ }
