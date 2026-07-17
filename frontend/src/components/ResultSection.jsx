@@ -85,8 +85,8 @@ export default function Transcription({ scanState, transcription }) {
   const [copied, setCopied] = useState(false)
   const [isPanelOpen, setIsPanelOpen] = useState(false)
   const [loadingLocation, setLoadingLocation] = useState(false)
-  const [nearbyPharmacies, setNearbyPharmacies] = useState([])
   const [pricingEstimate, setPricingEstimate] = useState({ min: 0, max: 0, notes: "" });
+  const [mapUrl, setMapUrl] = useState("");
   const [chatHistory, setChatHistory] = useState([
     { role: "assistant", text: "I can answer questions about the medications in your prescription. What would you like to know?" }
   ]);
@@ -199,10 +199,9 @@ export default function Transcription({ scanState, transcription }) {
           })
 
           // (Optional mock fallback for pharmacy markers if you don't use a Google Maps Places API)
-          setNearbyPharmacies([
-            { name: "Mercury Drug - Nearest Branch", distance: "Within your coordinate zone", status: "Open" },
-            { name: "Watsons Pharmacy", distance: "Localized to your region", status: "Open" }
-          ])
+          setMapUrl(
+  `https://www.google.com/maps?q=pharmacy+near+${latitude},${longitude}&output=embed`
+);
 
         } catch (error) {
           console.error("Gemini live execution failed:", error)
@@ -442,37 +441,35 @@ export default function Transcription({ scanState, transcription }) {
                   📍 Nearby Pharmacy Fulfillment
                 </h4>
 
-                {nearbyPharmacies.length === 0 ? (
-                  <div className="text-center py-6 border border-dashed border-slate-200 rounded-xl bg-slate-50">
-                    <p className="text-xs text-slate-500 mb-3">Find local branches stocking these drugs</p>
-                    <button
-                      onClick={findNearestPharmacies}
-                      disabled={loadingLocation}
-                      className="px-4 py-2 text-xs font-semibold rounded-lg text-white transition shadow-sm"
-                      style={{ background: '#0d9488', border: 'none' }}
-                    >
-                      {loadingLocation ? "Locating branches..." : "Share Location & Find"}
-                    </button>
-                  </div>
-                ) : (
-                  <div className="space-y-2">
-                    {nearbyPharmacies.map((pharmacy, idx) => (
-                      <div
-                        key={idx}
-                        className="flex justify-between items-center text-xs p-3 rounded-xl border border-slate-150 bg-slate-50"
-                      >
-                        <div>
-                          <p className="font-semibold text-slate-800">{pharmacy.name}</p>
-                          <p className="text-[11px] text-slate-500 mt-0.5">{pharmacy.distance}</p>
-                        </div>
-                        <span className="px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-800 text-[10px] font-bold">
-                          {pharmacy.status}
-                        </span>
-                      </div>
-                    ))}
-                  </div>
-                )}
-              </div>
+           {!mapUrl ? (
+  <div className="text-center py-6 border border-dashed border-slate-200 rounded-xl bg-slate-50">
+    <p className="text-xs text-slate-500 mb-3">
+      Find pharmacies near your location.
+    </p>
+
+    <button
+      onClick={findNearestPharmacies}
+      disabled={loadingLocation}
+      className="px-4 py-2 text-xs font-semibold rounded-lg text-white"
+      style={{ background: "#0d9488" }}
+    >
+      {loadingLocation ? "Loading..." : "📍 Find Nearby Pharmacies"}
+    </button>
+  </div>
+) : (
+  <iframe
+    title="Nearby Pharmacies"
+    width="100%"
+    height="350"
+    loading="lazy"
+    style={{
+      border: 0,
+      borderRadius: "12px"
+    }}
+    src={mapUrl}
+  />
+)}
+</div>
 
               {/* Box 3: Chat */}
               <div className="space-y-3">
