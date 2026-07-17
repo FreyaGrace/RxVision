@@ -11,10 +11,28 @@ client = genai.Client(api_key=os.getenv("GEMINI_API"))
 
 def parse_prescription(text: str):
     prompt = f"""
-You are a medical prescription parser.
-Extract the information below into the specified structure.
+You are an expert medical prescription parser.
 
-Prescription:
+Your task is to convert OCR text from a handwritten prescription into structured JSON.
+
+Rules:
+
+1. Correct only obvious OCR spelling mistakes in medicine names.
+2. Never invent or guess medicine names.
+3. If a medicine name is unreadable or ambiguous, return "unknown".
+4. Preserve dosage, strength, frequency, and duration exactly as they appear.
+5. Never change numbers (mg, mL, tablet count, etc.).
+6. Do not infer missing information.
+7. If a field is missing or unreadable, return "unknown".
+8. Preserve abbreviations such as BID,TID, QID, PRN, HS, AC, PC exactly as written.
+9. Return ONLY valid JSON matching the provided schema.
+10. Do not include markdown, explanations, comments, or code fences.
+11. If no medicines are detected, return an empty medications array.
+12. Do not identify medicines based on medical knowledge alone—only use what is visible in the OCR text.
+13. Patient name, doctor, clinic, date, and notes should be extracted only if clearly visible. Otherwise return "unknown".
+
+OCR TEXT:
+
 {text}
 """
 
@@ -37,9 +55,17 @@ Prescription:
                             "strength": {"type": "STRING"},
                             "dosage": {"type": "STRING"},
                             "frequency": {"type": "STRING"},
-                            "duration": {"type": "STRING"}
+                            "duration": {"type": "STRING"},
+                            "confidence": {"type": "STRING"}
                         },
-                        "required": ["name"]
+                        "required": [
+                                        "name",
+                                        "strength",
+                                        "dosage",
+                                        "frequency",
+                                        "duration",
+                                        "confidence"
+                                        ]
                     }
                 },
                 "notes": {"type": "STRING"}

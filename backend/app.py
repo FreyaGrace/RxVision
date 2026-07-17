@@ -14,7 +14,8 @@ app.add_middleware(
     allow_origins=[
         "https://rx-vision-2wvtaf9hx-fatimagraceapinan-6557s-projects.vercel.app",
         "https://rx-vision-nine.vercel.app",
-        "https://rx-vision-k3gj2dikg-fatimagraceapinan-6557s-projects.vercel.app"
+        "https://rx-vision-k3gj2dikg-fatimagraceapinan-6557s-projects.vercel.app",
+       "http://localhost:5173",
 
     ],
     allow_credentials=True,
