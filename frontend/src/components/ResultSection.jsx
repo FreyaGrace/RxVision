@@ -153,7 +153,11 @@ export default function Transcription({ scanState, transcription }) {
 
     navigator.geolocation.getCurrentPosition(
       async (position) => {
-        const { latitude, longitude } = position.coords
+          const { latitude, longitude, accuracy } = position.coords;
+
+    console.log("Latitude:", latitude);
+    console.log("Longitude:", longitude);
+    console.log("Accuracy:", accuracy, "meters");
 
         // 1. Structure a highly explicit prompt for the AI
         const prompt = `
@@ -213,7 +217,15 @@ export default function Transcription({ scanState, transcription }) {
       () => {
         alert("Unable to retrieve your physical location coordinates")
         setLoadingLocation(false)
-      }
+      },
+       (error) => {
+    console.error(error);
+  },
+  {
+    enableHighAccuracy: true,
+    timeout: 10000,
+    maximumAge: 0,
+  }
     )
   }
 
