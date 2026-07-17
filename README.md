@@ -21,6 +21,9 @@
 | **OCR** | Python-based OCR integration |
 
 ---
+## 🌐 Live Demo
+
+🔗 https://rx-vision-nine.vercel.app/
 
 ## 💡 Usage Instructions
 * Navigate to the Scan Prescription section.
@@ -30,3 +33,32 @@
 * Click Read Prescription to extract the data.
 
 * Use the Medical Guide Assistant box to ask follow-up questions about the findings.
+
+## 📸 Screenshots
+
+
+
+<img width="1860" height="1668" alt="image" src="https://github.com/user-attachments/assets/47b9e1e5-fe11-4200-af77-b57c12b3a22b" />
+
+<img width="1860" height="1751" alt="image" src="https://github.com/user-attachments/assets/801ff5d4-9338-4175-8c27-65648f3f6111" />
+<img width="1875" height="958" alt="image" src="https://github.com/user-attachments/assets/ff4a9cd3-083b-4252-bd1f-a679b4afcbfc" />
+
+## ⚠️ Known Limitations
+
+- Handwritten prescriptions with poor image quality may reduce OCR accuracy.
+- AI-generated results should always be verified by a healthcare professional.
+- The application is intended for educational and informational purposes only.
+
+## 🐞 Issues & Feedback
+
+Found a bug or have a feature request?
+
+Please open an issue on GitHub with:
+
+- A clear description of the problem
+- Steps to reproduce it
+- Screenshots (if applicable)
+- Browser/device information
+
+Feedback and contributions are welcome!
+
